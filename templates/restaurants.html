@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header">
+    <h1>List of restaurants</h1> </div>
+
+<div class = 'flash'>
+    <! the WITH thing here down: it does some automatic cleanup when the block is exited>
+
+    {% with messages = get_flashed_messages() %}
+
+    <! get_flashed_messages is returning an array of messages that's gonna get stored in
+    the messages variable>
+
+    {% if messages %}
+
+    <ul>
+        <! we then loop through the array of message if it's not empty and print it out
+        to our HTML document inside an Unordered List>
+
+    {% for message in messages %}
+        <li><strong> {{ message }} </strong></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+ <a href ="{{url_for('newRestaurant', restaurants = restaurants) }}">Create New Restaurant</a>
+<p>
+
+{% for item in restaurants: %}
+
+    <div class="name">
+
+    <h3><a href="{{ url_for('showMenu', restaurant_id=item.id) }}">{{ item.name }}</a></h3>
+        <p>
+
+        <a href={{ url_for('editRestaurant', restaurant_id=item.id) }}>Edit</a>
+        <a href={{ url_for('deleteRestaurant', restaurant_id=item.id) }}>Delete</a>
+
+    </div>
+    {% endfor %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <title>new menu item</title>
+</head>
+<body>
+<h1>New menu item of {{ restaurant.name }}</h1>
+
+
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li><strong> {{ message }} </strong></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<form action="{{ url_for('newMenuItem', restaurant_id=restaurant_id) }}" method='POST'>
+
+
+    <p>Name:</p>
+    <input type='text' size='30' name='name'>
+    <p>Description:</p>
+    <input type='text' size='30' name='description'>
+    <p>Price:</p>
+    <input type='text' size='30' name='price'>
+<p></p>
+    <legend>Course:</legend>
+    <br>
+    <div>
+    <input type='radio' id='appetizer' name='course' value='appetizer' checked>
+            <label for='appetizer'>Appetizer</label>
+    </div>
+    <div>
+    <input type='radio' id='entree' name='course' value='entree'>
+            <label for='entree'>Entree</label>
+    </div>
+    <div>
+    <input type='radio' id='dessert' name='course' value='dessert'>
+            <label for='dessert'>Dessert</label>
+    </div>
+    <div>
+    <input type='radio' id='beverage' name='course' value='beverage'>
+            <label for="beverage">Beverage</label>
+    </div>
+<p></p>
+    <input type='submit' value='Create'>
+    <p></p>
+    <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
+</form>
+</body>
+</html>

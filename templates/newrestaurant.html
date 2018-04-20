@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <title>newrestaurant</title>
+</head>
+<body>
+<div class = 'flash'>
+    <! the WITH thing here down: it does some automatic cleanup when the block is exited>
+
+    {% with messages = get_flashed_messages() %}
+
+    <! get_flashed_messages is returning an array of messages that's gonna get stored in
+    the messages variable>
+
+    {% if messages %}
+
+    <ul>
+        <! we then loop through the array of message if it's not empty and print it out
+        to our HTML document inside an Unordered List>
+
+    {% for message in messages %}
+        <li><strong> {{ message }} </strong></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<div class="header">
+    <h1>Add New Restaurant</h1>
+    <form action="{{url_for('newRestaurant', restaurant=restaurant )}}" method = 'POST'>
+
+    <p>Name:</p>
+    <input type='text' size='30' name='name'>  <!a small form with only one entry
+    to create a new menu item name>
+
+    <input type='submit' value='Create'>
+    <a href={{ url_for('showRestaurants', restaurant=restaurant) }}>Cancel</a>
+    </form>
+</div>
+</body>
+</html>
